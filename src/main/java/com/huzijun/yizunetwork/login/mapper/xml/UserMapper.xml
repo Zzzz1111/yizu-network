@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huzijun.yizunetwork.login.mapper.UserMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.huzijun.yizunetwork.login.entity.User">
+		<id column="id" property="id" />
+		<result column="del_flag" property="delFlag" />
+		<result column="version" property="version" />
+	</resultMap>
+
+
+
+    <sql id="entityWrapperJoin">
+    	<if test="ew != null">
+    		<if test="ew.entity != null">
+    			<where>
+        			<if test="ew.entity.id!=null">
+						AND a.id=#{ew.entity.id}
+					</if>
+        			<if test="ew.entity.delFlag!=null">
+						AND a.del_flag=#{ew.entity.delFlag}
+					</if>
+        			<if test="ew.entity.version!=null">
+						AND a.version=#{ew.entity.version}
+					</if>
+                    <if test="ew.entity.delFlag!=null and ew.entity.delFlag!=''">
+                        AND a.del_flag=#{ew.entity.delFlag}
+                    </if>
+				</where>
+			</if>
+			<if test="ew.sqlSegment != null">
+				${ew.sqlSegment}
+			</if>
+		</if>
+	</sql>
+</mapper>
