@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huzijun.yizunetwork.login.mapper.UserInfoMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.huzijun.yizunetwork.login.entity.UserInfo">
+		<id column="u_id" property="uId" />
+		<result column="login_id" property="loginId" />
+		<result column="pwd" property="pwd" />
+		<result column="name" property="name" />
+		<result column="u_img_path" property="uImgPath" />
+		<result column="dk_sex" property="dkSex" />
+		<result column="is_certification" property="isCertification" />
+		<result column="dk_identity_type" property="dkIdentityType" />
+		<result column="idcard_no" property="idcardNo" />
+		<result column="phone_no" property="phoneNo" />
+		<result column="email" property="email" />
+		<result column="address" property="address" />
+		<result column="dk_u_exception" property="dkUException" />
+	</resultMap>
+
+
+
+    <sql id="entityWrapperJoin">
+    	<if test="ew != null">
+    		<if test="ew.entity != null">
+    			<where>
+        			<if test="ew.entity.uId!=null">
+						AND a.u_id=#{ew.entity.uId}
+					</if>
+        			<if test="ew.entity.loginId!=null and ew.entity.loginId!=''">
+						AND a.login_id=#{ew.entity.loginId}
+					</if>
+        			<if test="ew.entity.pwd!=null and ew.entity.pwd!=''">
+						AND a.pwd=#{ew.entity.pwd}
+					</if>
+        			<if test="ew.entity.name!=null and ew.entity.name!=''">
+						AND a.name=#{ew.entity.name}
+					</if>
+        			<if test="ew.entity.uImgPath!=null and ew.entity.uImgPath!=''">
+						AND a.u_img_path=#{ew.entity.uImgPath}
+					</if>
+        			<if test="ew.entity.dkSex!=null">
+						AND a.dk_sex=#{ew.entity.dkSex}
+					</if>
+        			<if test="ew.entity.isCertification!=null and ew.entity.isCertification!=''">
+						AND a.is_certification=#{ew.entity.isCertification}
+					</if>
+        			<if test="ew.entity.dkIdentityType!=null">
+						AND a.dk_identity_type=#{ew.entity.dkIdentityType}
+					</if>
+        			<if test="ew.entity.idcardNo!=null and ew.entity.idcardNo!=''">
+						AND a.idcard_no=#{ew.entity.idcardNo}
+					</if>
+        			<if test="ew.entity.phoneNo!=null and ew.entity.phoneNo!=''">
+						AND a.phone_no=#{ew.entity.phoneNo}
+					</if>
+        			<if test="ew.entity.email!=null and ew.entity.email!=''">
+						AND a.email=#{ew.entity.email}
+					</if>
+        			<if test="ew.entity.address!=null and ew.entity.address!=''">
+						AND a.address=#{ew.entity.address}
+					</if>
+        			<if test="ew.entity.dkUException!=null">
+						AND a.dk_u_exception=#{ew.entity.dkUException}
+					</if>
+                    <if test="ew.entity.delFlag!=null and ew.entity.delFlag!=''">
+                        AND a.del_flag=#{ew.entity.delFlag}
+                    </if>
+				</where>
+			</if>
+			<if test="ew.sqlSegment != null">
+				${ew.sqlSegment}
+			</if>
+		</if>
+	</sql>
+</mapper>
