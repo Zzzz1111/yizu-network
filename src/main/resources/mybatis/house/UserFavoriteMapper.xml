@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huzijun.yizunetwork.user.mapper.UserFavoriteMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.huzijun.yizunetwork.user.entity.UserFavorite">
+		<id column="u_f_id" property="uFId" />
+		<result column="u_id" property="uId" />
+		<result column="h_favorite" property="hFavorite" />
+	</resultMap>
+
+
+
+    <sql id="entityWrapperJoin">
+    	<if test="ew != null">
+    		<if test="ew.entity != null">
+    			<where>
+        			<if test="ew.entity.uFId!=null">
+						AND a.u_f_id=#{ew.entity.uFId}
+					</if>
+        			<if test="ew.entity.uId!=null">
+						AND a.u_id=#{ew.entity.uId}
+					</if>
+        			<if test="ew.entity.hFavorite!=null">
+						AND a.h_favorite=#{ew.entity.hFavorite}
+					</if>
+                    <if test="ew.entity.delFlag!=null and ew.entity.delFlag!=''">
+                        AND a.del_flag=#{ew.entity.delFlag}
+                    </if>
+				</where>
+			</if>
+			<if test="ew.sqlSegment != null">
+				${ew.sqlSegment}
+			</if>
+		</if>
+	</sql>
+</mapper>

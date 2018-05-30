@@ -1,7 +1,9 @@
-package com.huzijun.yizunetwork.core.login.DTO;
+package com.huzijun.yizunetwork.core.user.DTO;
 
 //登录注册使用
 public class UserDTO {
+    private Integer uId;
+
     private String loginId;
 
     private String pwd;
@@ -12,8 +14,18 @@ public class UserDTO {
 
     private String phone;
 
+    private String newPwd;
+
     //登录途径app,web
     private Integer way;
+
+    public Integer getuId() {
+        return uId;
+    }
+
+    public void setuId(Integer uId) {
+        this.uId = uId;
+    }
 
     public String getLoginId() {
         return loginId;
@@ -58,6 +70,14 @@ public class UserDTO {
 
     public String getPhone() {
         return phone;
+    }
+
+    public String getNewPwd() {
+        return newPwd;
+    }
+
+    public void setNewPwd(String newPwd) {
+        this.newPwd = newPwd;
     }
 
     public void setPhone(String phone) {

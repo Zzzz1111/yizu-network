@@ -1,9 +1,9 @@
-package com.huzijun.yizunetwork.core.login.web;
+package com.huzijun.yizunetwork.core.user.web;
 
 import com.huzijun.yizunetwork.common.BaseReturnDTO;
-import com.huzijun.yizunetwork.core.login.DTO.UserDTO;
-import com.huzijun.yizunetwork.core.login.entity.UserInfo;
-import com.huzijun.yizunetwork.core.login.service.UserInfoService;
+import com.huzijun.yizunetwork.core.user.DTO.UserDTO;
+import com.huzijun.yizunetwork.core.user.entity.UserInfo;
+import com.huzijun.yizunetwork.core.user.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -26,7 +27,7 @@ import javax.servlet.http.HttpSession;
  * @since 2018-05-15
  */
 @Controller
-@RequestMapping("/login/userInfo")
+@RequestMapping("/user")
 public class UserInfoController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserInfoController.class);
@@ -73,7 +74,38 @@ public class UserInfoController extends BaseController {
     @ResponseBody
     @GetMapping(value = "/sendCheckMsg")
     public BaseReturnDTO sendCheckMsg(String phone){
+
         return BaseReturnDTO.ok("发送成功",userInfoService.sendCheckMsg(phone));
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/completeUserInfo")
+    public BaseReturnDTO completeUserInfo(UserInfo userInfo){
+        return BaseReturnDTO.ok("更新成功",userInfoService.completeUserInfo(userInfo));
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/updateUserInfo")
+    public BaseReturnDTO updateUserInfo(UserInfo userInfo){
+        return BaseReturnDTO.ok("更新成功",userInfoService.updateUserInfo(userInfo));
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/changePhone")
+    public BaseReturnDTO changPhone(UserDTO userDTO){
+        return BaseReturnDTO.ok("更新成功",userInfoService.changePhone(userDTO));
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/changePwd")
+    public BaseReturnDTO changePWD(UserDTO userDTO){
+        return BaseReturnDTO.ok("更新成功",userInfoService.changePwd(userDTO));
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/uploadUserIcon")
+    public BaseReturnDTO uploadUserIcon(UserInfo userInfo,HttpServletRequest request){
+        return BaseReturnDTO.ok("更新成功",userInfoService.upLoadUserIcon(userInfo,request));
     }
 
 

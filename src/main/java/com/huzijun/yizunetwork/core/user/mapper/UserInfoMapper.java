@@ -1,7 +1,7 @@
-package com.huzijun.yizunetwork.core.login.mapper;
+package com.huzijun.yizunetwork.core.user.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.huzijun.yizunetwork.core.login.entity.UserInfo;
+import com.huzijun.yizunetwork.core.user.entity.UserInfo;
 
 /**
  * <p>

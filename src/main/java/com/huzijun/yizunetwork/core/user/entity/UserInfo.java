@@ -1,13 +1,12 @@
-package com.huzijun.yizunetwork.core.login.entity;
+package com.huzijun.yizunetwork.core.user.entity;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.huzijun.yizunetwork.common.BaseEntity;
-import java.io.Serializable;
+import com.huzijun.yizunetwork.common.enm.ValidatedGroup;
+
+import javax.validation.constraints.NotBlank;
 
 
 /**
@@ -49,6 +48,7 @@ public class UserInfo extends BaseEntity {
     /**
      * 性别：1：男，2：女
      */
+//    @NotBlank(groups = ValidatedGroup.Update.class, message = "性别不能为空")
 	@TableField("dk_sex")
 	private Integer dkSex;
     /**
@@ -76,10 +76,12 @@ public class UserInfo extends BaseEntity {
     /**
      * 电子邮件
      */
+//	@NotBlank(groups = ValidatedGroup.Update.class, message = "=邮箱不能为空")
 	private String email;
     /**
      * 居住地址
      */
+//	@NotBlank(groups = ValidatedGroup.Update.class, message = "=地址不能为空")
 	private String address;
     /**
      * 用户异常标识：0：正常

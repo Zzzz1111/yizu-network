@@ -1,4 +1,4 @@
-package com.huzijun.yizunetwork.core.login.service;
+package com.huzijun.yizunetwork.core.user.service;
 
 import cn.jiguang.common.resp.APIConnectionException;
 import cn.jiguang.common.resp.APIRequestException;

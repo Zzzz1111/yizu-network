@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huzijun.yizunetwork.user.mapper.HouseInfoMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.huzijun.yizunetwork.user.entity.HouseInfo">
+		<id column="h_id" property="hId" />
+		<result column="u_id" property="uId" />
+		<result column="dk_rental_way" property="dkRentalWay" />
+		<result column="dk_room_type" property="dkRoomType" />
+		<result column="title" property="title" />
+		<result column="room" property="room" />
+		<result column="hall" property="hall" />
+		<result column="toilet" property="toilet" />
+		<result column="area" property="area" />
+		<result column="dk_orient" property="dkOrient" />
+		<result column="dk_decoration" property="dkDecoration" />
+		<result column="floor" property="floor" />
+		<result column="total_floor" property="totalFloor" />
+		<result column="rental" property="rental" />
+		<result column="dk_rental_type" property="dkRentalType" />
+		<result column="water_rate" property="waterRate" />
+		<result column="power_rate" property="powerRate" />
+		<result column="dk_rental_cost" property="dkRentalCost" />
+		<result column="dk_configure" property="dkConfigure" />
+		<result column="dk_rental_demand" property="dkRentalDemand" />
+		<result column="dk_looktime" property="dkLooktime" />
+		<result column="suitable" property="suitable" />
+		<result column="cont_name" property="contName" />
+		<result column="cont_phone" property="contPhone" />
+		<result column="introduce" property="introduce" />
+		<result column="address" property="address" />
+		<result column="add_longitude" property="addLongitude" />
+		<result column="add_latitude" property="addLatitude" />
+		<result column="h_img_path" property="hImgPath" />
+		<result column="ctr" property="ctr" />
+		<result column="favorite" property="favorite" />
+		<result column="tip_off" property="tipOff" />
+		<result column="dk_pub_status" property="dkPubStatus" />
+		<result column="publish_time" property="publishTime" />
+		<result column="dk_h_exception" property="dkHException" />
+	</resultMap>
+
+
+
+    <sql id="entityWrapperJoin">
+    	<if test="ew != null">
+    		<if test="ew.entity != null">
+    			<where>
+        			<if test="ew.entity.hId!=null">
+						AND a.h_id=#{ew.entity.hId}
+					</if>
+        			<if test="ew.entity.uId!=null">
+						AND a.u_id=#{ew.entity.uId}
+					</if>
+        			<if test="ew.entity.dkRentalWay!=null">
+						AND a.dk_rental_way=#{ew.entity.dkRentalWay}
+					</if>
+        			<if test="ew.entity.dkRoomType!=null">
+						AND a.dk_room_type=#{ew.entity.dkRoomType}
+					</if>
+        			<if test="ew.entity.title!=null and ew.entity.title!=''">
+						AND a.title=#{ew.entity.title}
+					</if>
+        			<if test="ew.entity.room!=null">
+						AND a.room=#{ew.entity.room}
+					</if>
+        			<if test="ew.entity.hall!=null">
+						AND a.hall=#{ew.entity.hall}
+					</if>
+        			<if test="ew.entity.toilet!=null">
+						AND a.toilet=#{ew.entity.toilet}
+					</if>
+        			<if test="ew.entity.area!=null">
+						AND a.area=#{ew.entity.area}
+					</if>
+        			<if test="ew.entity.dkOrient!=null">
+						AND a.dk_orient=#{ew.entity.dkOrient}
+					</if>
+        			<if test="ew.entity.dkDecoration!=null">
+						AND a.dk_decoration=#{ew.entity.dkDecoration}
+					</if>
+        			<if test="ew.entity.floor!=null">
+						AND a.floor=#{ew.entity.floor}
+					</if>
+        			<if test="ew.entity.totalFloor!=null">
+						AND a.total_floor=#{ew.entity.totalFloor}
+					</if>
+        			<if test="ew.entity.rental!=null">
+						AND a.rental=#{ew.entity.rental}
+					</if>
+        			<if test="ew.entity.dkRentalType!=null">
+						AND a.dk_rental_type=#{ew.entity.dkRentalType}
+					</if>
+        			<if test="ew.entity.waterRate!=null">
+						AND a.water_rate=#{ew.entity.waterRate}
+					</if>
+        			<if test="ew.entity.powerRate!=null">
+						AND a.power_rate=#{ew.entity.powerRate}
+					</if>
+        			<if test="ew.entity.dkRentalCost!=null and ew.entity.dkRentalCost!=''">
+						AND a.dk_rental_cost=#{ew.entity.dkRentalCost}
+					</if>
+        			<if test="ew.entity.dkConfigure!=null and ew.entity.dkConfigure!=''">
+						AND a.dk_configure=#{ew.entity.dkConfigure}
+					</if>
+        			<if test="ew.entity.dkRentalDemand!=null and ew.entity.dkRentalDemand!=''">
+						AND a.dk_rental_demand=#{ew.entity.dkRentalDemand}
+					</if>
+        			<if test="ew.entity.dkLooktime!=null">
+						AND a.dk_looktime=#{ew.entity.dkLooktime}
+					</if>
+        			<if test="ew.entity.suitable!=null">
+						AND a.suitable=#{ew.entity.suitable}
+					</if>
+        			<if test="ew.entity.contName!=null and ew.entity.contName!=''">
+						AND a.cont_name=#{ew.entity.contName}
+					</if>
+        			<if test="ew.entity.contPhone!=null and ew.entity.contPhone!=''">
+						AND a.cont_phone=#{ew.entity.contPhone}
+					</if>
+        			<if test="ew.entity.introduce!=null and ew.entity.introduce!=''">
+						AND a.introduce=#{ew.entity.introduce}
+					</if>
+        			<if test="ew.entity.address!=null and ew.entity.address!=''">
+						AND a.address=#{ew.entity.address}
+					</if>
+        			<if test="ew.entity.addLongitude!=null and ew.entity.addLongitude!=''">
+						AND a.add_longitude=#{ew.entity.addLongitude}
+					</if>
+        			<if test="ew.entity.addLatitude!=null and ew.entity.addLatitude!=''">
+						AND a.add_latitude=#{ew.entity.addLatitude}
+					</if>
+        			<if test="ew.entity.hImgPath!=null and ew.entity.hImgPath!=''">
+						AND a.h_img_path=#{ew.entity.hImgPath}
+					</if>
+        			<if test="ew.entity.ctr!=null">
+						AND a.ctr=#{ew.entity.ctr}
+					</if>
+        			<if test="ew.entity.favorite!=null">
+						AND a.favorite=#{ew.entity.favorite}
+					</if>
+        			<if test="ew.entity.tipOff!=null">
+						AND a.tip_off=#{ew.entity.tipOff}
+					</if>
+        			<if test="ew.entity.dkPubStatus!=null">
+						AND a.dk_pub_status=#{ew.entity.dkPubStatus}
+					</if>
+        			<if test="ew.entity.publishTime!=null">
+						AND a.publish_time=#{ew.entity.publishTime}
+					</if>
+        			<if test="ew.entity.dkHException!=null">
+						AND a.dk_h_exception=#{ew.entity.dkHException}
+					</if>
+                    <if test="ew.entity.delFlag!=null and ew.entity.delFlag!=''">
+                        AND a.del_flag=#{ew.entity.delFlag}
+                    </if>
+				</where>
+			</if>
+			<if test="ew.sqlSegment != null">
+				${ew.sqlSegment}
+			</if>
+		</if>
+	</sql>
+</mapper>
