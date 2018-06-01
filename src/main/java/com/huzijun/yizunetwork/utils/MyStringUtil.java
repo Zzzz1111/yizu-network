@@ -14,4 +14,12 @@ public class MyStringUtil {
     public static String trim(String s){
         return StringUtils.trimToEmpty(s);
     }
+
+    public static boolean isSize(String s,int minSize,int maxSize){
+        if (s.length() > maxSize)
+            return false;
+        if (s.length() < minSize)
+            return false;
+        return true;
+    }
 }

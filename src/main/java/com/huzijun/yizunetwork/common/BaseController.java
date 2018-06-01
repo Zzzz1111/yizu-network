@@ -1,4 +1,4 @@
-package com.cr.crinporder.core.base;
+package com.huzijun.yizunetwork.common;
 
 /**
  * 控制器基类

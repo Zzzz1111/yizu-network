@@ -1,8 +1,8 @@
-package com.cr.crinporder.common.handler;
+package com.huzijun.yizunetwork.handler;
 
-import com.cr.crinporder.common.enm.ResultCode;
-import com.cr.crinporder.core.base.BaseReturnDTO;
-import com.cr.crinporder.core.base.BusinessBaseException;
+import com.huzijun.yizunetwork.common.BaseReturnDTO;
+import com.huzijun.yizunetwork.common.BusinessBaseException;
+import com.huzijun.yizunetwork.common.enm.ResultCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.UncategorizedSQLException;
@@ -65,7 +65,7 @@ public class GlobalExceptionHandler {
             for (FieldError e:ex.getFieldErrors()) {
                 errorList.add(e.getDefaultMessage());
             }
-            return BaseReturnDTO.fail("500","信息填写错误",errorList);
+            return BaseReturnDTO.fail("500", "信息填写错误", errorList);
         }
 
         @ExceptionHandler(BusinessBaseException.class)

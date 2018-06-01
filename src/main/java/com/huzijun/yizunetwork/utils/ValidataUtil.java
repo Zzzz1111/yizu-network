@@ -14,4 +14,15 @@ public class ValidataUtil {
             Matcher m = p.matcher(mobiles);
             return m.matches();
         }
+
+        /**
+         * 检查密码是否有效
+         * @param pwd
+         * @return
+         */
+        public static boolean isValidPwd(String pwd){
+            Pattern p = Pattern.compile("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$");
+            Matcher m = p.matcher(pwd);
+            return m.matches();
+        }
 }

@@ -4,16 +4,14 @@ import com.huzijun.yizunetwork.common.BaseReturnDTO;
 import com.huzijun.yizunetwork.core.user.DTO.UserDTO;
 import com.huzijun.yizunetwork.core.user.entity.UserInfo;
 import com.huzijun.yizunetwork.core.user.service.UserInfoService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import com.huzijun.yizunetwork.common.BaseController;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,7 +25,7 @@ import javax.servlet.http.HttpSession;
  * @since 2018-05-15
  */
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/usr")
 public class UserInfoController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserInfoController.class);
@@ -46,7 +44,7 @@ public class UserInfoController extends BaseController {
 
     @ResponseBody
     @PostMapping(value = "/signInByLoginId")
-    public BaseReturnDTO signInByLoginId(UserDTO userDTO, HttpSession session){
+    public BaseReturnDTO signInByLoginId(@RequestBody UserDTO userDTO, HttpSession session){
         UserInfo userInfo = userInfoService.signInByLoginId(userDTO);
         if (userInfo.getuId() != null)
             session.setAttribute("userInfo",userInfo);
@@ -64,7 +62,7 @@ public class UserInfoController extends BaseController {
 
     @ResponseBody
     @PostMapping(value = "/signInByPhone")
-    public BaseReturnDTO signInByPhone(UserDTO userDTO,HttpSession session){
+    public BaseReturnDTO signInByPhone(@RequestBody UserDTO userDTO,HttpSession session){
         UserInfo userInfo = userInfoService.signInByPhone(userDTO);
         if (userInfo.getuId() != null)
             session.setAttribute("userInfo",userInfo);
@@ -74,8 +72,7 @@ public class UserInfoController extends BaseController {
     @ResponseBody
     @GetMapping(value = "/sendCheckMsg")
     public BaseReturnDTO sendCheckMsg(String phone){
-
-        return BaseReturnDTO.ok("发送成功",userInfoService.sendCheckMsg(phone));
+        return BaseReturnDTO.ok(userInfoService.sendCheckMsg(phone));
     }
 
     @ResponseBody
@@ -105,7 +102,7 @@ public class UserInfoController extends BaseController {
     @ResponseBody
     @GetMapping(value = "/uploadUserIcon")
     public BaseReturnDTO uploadUserIcon(UserInfo userInfo,HttpServletRequest request){
-        return BaseReturnDTO.ok("更新成功",userInfoService.upLoadUserIcon(userInfo,request));
+        return BaseReturnDTO.ok(userInfoService.upLoadUserIcon(userInfo,request));
     }
 
 

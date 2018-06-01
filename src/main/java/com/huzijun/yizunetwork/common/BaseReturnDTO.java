@@ -4,7 +4,7 @@ import com.huzijun.yizunetwork.common.enm.ResultCode;
 
 import java.io.Serializable;
 
-public class ResultJson implements Serializable{
+public class BaseReturnDTO implements Serializable{
         private static final long serialVersionUID = 1L;
         /**
          * 返回结果
@@ -27,46 +27,46 @@ public class ResultJson implements Serializable{
          */
         private Object busObj;
 
-        public ResultJson(){
+        public BaseReturnDTO(){
 
         }
 
-        public ResultJson(boolean success,String resultCode,String resultMessage){
+        public BaseReturnDTO(boolean success, String resultCode, String resultMessage){
             this.success = success;
             this.resultCode = resultCode;
             this.resultMessage = resultMessage;
         }
 
-        public static ResultJson ok(String message){
-            ResultJson dto = new ResultJson(true,"200",message);
+        public static BaseReturnDTO ok(String message){
+            BaseReturnDTO dto = new BaseReturnDTO(true,"200",message);
             return dto;
         }
 
-        public static ResultJson ok(String message,Object busObj){
-            ResultJson dto = new ResultJson(true,"200",message);
+        public static BaseReturnDTO ok(String message, Object busObj){
+            BaseReturnDTO dto = new BaseReturnDTO(true,"200",message);
             dto.setBusObj(busObj);
             return dto;
         }
 
-        public static ResultJson ok(String message,Object obj,Object busObj){
-            ResultJson dto = new ResultJson(true,"200",message);
+        public static BaseReturnDTO ok(String message, Object obj, Object busObj){
+            BaseReturnDTO dto = new BaseReturnDTO(true,"200",message);
             dto.setBusObj(busObj);
             dto.setObj(obj);
             return dto;
         }
 
-        public static ResultJson ok(String code,String message){
-            ResultJson dto = new ResultJson(true,code,message);
+        public static BaseReturnDTO ok(String code, String message){
+            BaseReturnDTO dto = new BaseReturnDTO(true,code,message);
             return dto;
         }
 
-        public ResultJson(ResultCode code,String resultMessage){
+        public BaseReturnDTO(ResultCode code, String resultMessage){
             boolean success = (code == ResultCode.OK) ? true : false;
             this.resultCode =resultCode;
             this.resultMessage = resultMessage;
         }
 
-        public ResultJson(ResultCode code, Object data) {
+        public BaseReturnDTO(ResultCode code, Object data) {
             boolean success = (code == ResultCode.OK) ? true : false;
             this.success = success;
             this.resultCode = code.getCode();
@@ -114,23 +114,23 @@ public class ResultJson implements Serializable{
             this.busObj = busObj;
         }
 
-        public static ResultJson fail(String resultMessage){
-            ResultJson dto = new ResultJson();
+        public static BaseReturnDTO fail(String resultMessage){
+            BaseReturnDTO dto = new BaseReturnDTO();
             dto.setSuccess(false);
             dto.setResultMessage(resultMessage);
             return dto;
         }
 
-        public static ResultJson fail(ResultCode code){
-            ResultJson dto = new ResultJson();
+        public static BaseReturnDTO fail(ResultCode code){
+            BaseReturnDTO dto = new BaseReturnDTO();
             dto.setSuccess(false);
             dto.setResultCode(code.getCode());
             dto.setResultMessage(code.getMessage());
             return dto;
         }
 
-        public static ResultJson fail(String code,String resultMessage,Object busObj){
-            ResultJson dto = new ResultJson();
+        public static BaseReturnDTO fail(String code, String resultMessage, Object busObj){
+            BaseReturnDTO dto = new BaseReturnDTO();
             dto.setSuccess(false);
             dto.setResultCode(code);
             dto.setResultMessage(resultMessage);
@@ -138,16 +138,16 @@ public class ResultJson implements Serializable{
             return dto;
         }
 
-        public static ResultJson fail(String resultCode,String resultMessage){
-            ResultJson dto = new ResultJson();
+        public static BaseReturnDTO fail(String resultCode, String resultMessage){
+            BaseReturnDTO dto = new BaseReturnDTO();
             dto.setSuccess(false);
             dto.setResultCode(resultCode);
             dto.setResultMessage(resultMessage);
             return dto;
         }
 
-        public static ResultJson success(){
-            ResultJson dto = new ResultJson();
+        public static BaseReturnDTO success(){
+            BaseReturnDTO dto = new BaseReturnDTO();
             dto.setSuccess(true);
             dto.setResultCode("200");
             dto.setResultMessage("操作成功");
@@ -156,7 +156,7 @@ public class ResultJson implements Serializable{
 
         @Override
         public String toString() {
-            return "ResultJson{" +
+            return "BaseReturnDTO{" +
                     "success=" + success +
                     ", resultCode='" + resultCode + '\'' +
                     ", resultMessage='" + resultMessage + '\'' +

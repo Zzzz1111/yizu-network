@@ -1,22 +1,19 @@
 package com.huzijun.yizunetwork.core.house.web;
 
+import com.huzijun.yizunetwork.common.BaseController;
 import com.huzijun.yizunetwork.common.BaseReturnDTO;
 import com.huzijun.yizunetwork.common.PageDTO;
 import com.huzijun.yizunetwork.core.house.entity.HouseInfo;
 import com.huzijun.yizunetwork.core.house.service.HouseInfoService;
-import com.huzijun.yizunetwork.core.user.service.FileService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import com.huzijun.yizunetwork.common.BaseController;
-
+import com.huzijun.yizunetwork.core.user.entity.UserInfo;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * <p>
@@ -36,8 +33,9 @@ public class HouseInfoController extends BaseController {
     HouseInfoService houseInfoService;
 
     @PostMapping(value = "/publishHouseInfo")
-    public BaseReturnDTO publishHouseInfo(HouseInfo houseInfo){
-        return BaseReturnDTO.ok("操作成功",houseInfoService.publishHouseInfo(houseInfo));
+    public BaseReturnDTO publishHouseInfo(HttpSession session,@RequestBody HouseInfo houseInfo){
+        UserInfo user= (UserInfo) session.getAttribute("user");
+        return BaseReturnDTO.ok("操作成功",houseInfoService.publishHouseInfo(user.getuId(),houseInfo));
     }
 
     @PostMapping(value = "/updateHouseInfo")
@@ -61,8 +59,16 @@ public class HouseInfoController extends BaseController {
     }
 
     @GetMapping(value = "/delHouseInfo")
-    public BaseReturnDTO delHouseInfo(Integer hId){
-        return BaseReturnDTO.ok("操作成功",houseInfoService.delHouseInfo(hId));
+    public BaseReturnDTO delHouseInfo(HttpSession session,Integer hId){
+        UserInfo user= (UserInfo) session.getAttribute("user");
+        return BaseReturnDTO.ok("操作成功",houseInfoService.delHouseInfo(user.getuId(),hId));
+    }
+
+    @PostMapping(value = "/getMyPage")
+    public BaseReturnDTO getMyPage(HttpSession session,PageDTO<HouseInfo> pageDTO){
+        UserInfo user= (UserInfo) session.getAttribute("user");
+        pageDTO.getModel().setuId(user.getuId());
+        return BaseReturnDTO.ok("查询成功",houseInfoService.getMyPage(pageDTO));
     }
 
 

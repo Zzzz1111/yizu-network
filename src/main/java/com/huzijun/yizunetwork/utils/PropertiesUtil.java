@@ -30,7 +30,7 @@ public class PropertiesUtil {
 
     public static void main(String args[])
     {
-        System.out.println(PropertiesUtil.getValueBykey("jpushConfig","repeat.plan.content"));
+        System.out.println(PropertiesUtil.getValueBykey("jpushConfig","masterSecret").getClass());
     }
 
 }

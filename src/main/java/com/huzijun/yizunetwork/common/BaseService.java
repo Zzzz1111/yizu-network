@@ -1,4 +1,4 @@
-package com.cr.crinporder.core.base;
+package com.huzijun.yizunetwork.common;
 
 
 import com.baomidou.mybatisplus.entity.TableInfo;
@@ -10,8 +10,6 @@ import com.baomidou.mybatisplus.mapper.SqlHelper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.toolkit.*;
-import org.apache.ibatis.logging.Log;
-import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -291,25 +289,25 @@ public abstract class BaseService<M extends BaseMapper<T>, T> {
         return baseMapper.selectCount(ew) >= 1 ? false : true;
     }
 
-    public BaseReturnDTO commonDelete(Long id){
-        if (id == null || id <= 0L){
-            return BaseReturnDTO.fail("id为空或者id无效");
-        }
-        if (selectById(id) == null){
-            return BaseReturnDTO.fail("实体不存在");
-        }
-        boolean flag = deleteById(id);
-        if (flag){
-            return BaseReturnDTO.ok("操作成功");
-        }
-        return BaseReturnDTO.fail("操作失败");
-    }
+//    public BaseReturnDTO commonDeleteCheck(Long id){
+//        if (id == null || id <= 0L){
+//            exception("id为空或者id无效");
+//        }
+//        if (selectById(id) == null){
+//            exception("实体不存在");
+//        }
+//        boolean flag = deleteById(id);
+//        if (flag){
+//            return BaseReturnDTO.ok("操作成功");
+//        }
+//        return BaseReturnDTO.fail("操作失败");
+//    }
 
-    public Object commonExistsCheck(Long id) {
+    public T commonExistsCheck(Integer id) {
         if (id == null || id <= 0L) {
             exception("id为空或者id无效");
         }
-        Object object = selectById(id);
+        T object = selectById(id);
         if (object == null) {
             exception("实体不存在");
         }

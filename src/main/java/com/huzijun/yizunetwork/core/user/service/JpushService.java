@@ -35,7 +35,7 @@ public class JpushService {
         SMSPayload payload = SMSPayload.newBuilder().setMobileNumber(phone).setTempId(tempId).build();
         try {
             SendSMSResult res = smsClient.sendSMSCode(payload);
-            return res.toString();
+            return res.getMessageId();
         } catch (APIConnectionException e) {
             logger.error("Connection error. Should retry later. ", e);
         } catch (APIRequestException e) {

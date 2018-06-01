@@ -225,6 +225,31 @@ public class HouseInfo extends BaseEntity {
 	@TableField(exist = false)
 	private String subway;
 
+	@TableField(exist = false)
+	private String[] subStations;
+
+	@TableField(exist = false)
+	private String priceRange;
+
+	@TableField(exist = false)
+	private String addressKey;
+
+	public String getPriceRange() {
+		return priceRange;
+	}
+
+	public void setPriceRange(String priceRange) {
+		this.priceRange = priceRange;
+	}
+
+	public String[] getSubStations() {
+		return subStations;
+	}
+
+	public void setSubStations(String[] subStations) {
+		this.subStations = subStations;
+	}
+
 	public String getDkSubStation() {
 		return dkSubStation;
 	}
@@ -527,6 +552,14 @@ public class HouseInfo extends BaseEntity {
 
 	public void setSubway(String subway) {
 		this.subway = subway;
+	}
+
+	public String getAddressKey() {
+		return addressKey;
+	}
+
+	public void setAddressKey(String addressKey) {
+		this.addressKey = addressKey;
 	}
 
 

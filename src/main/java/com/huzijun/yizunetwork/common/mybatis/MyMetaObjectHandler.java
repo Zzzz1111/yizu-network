@@ -1,4 +1,4 @@
-package com.cr.crinporder.common.mybatis;
+package com.huzijun.yizunetwork.common.mybatis;
 
 import com.baomidou.mybatisplus.mapper.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;

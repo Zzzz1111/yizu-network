@@ -3,10 +3,10 @@ package com.huzijun.yizunetwork.config;
 import com.huzijun.yizunetwork.common.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Configuration
     public class MyWebMvcConfig extends WebMvcConfigurationSupport  {
@@ -15,7 +15,7 @@ import java.util.List;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        urlList.add("/login");
+//        urlList.add("/user");
 //        urlList.add("/error");
         urlList.add("/user/*");
         urlList.add("/admin/*");

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.huzijun.yizunetwork.user.mapper.HouseInfoMapper">
+<mapper namespace="com.huzijun.yizunetwork.core.house.mapper.HouseInfoMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.huzijun.yizunetwork.user.entity.HouseInfo">
+	<resultMap id="BaseResultMap" type="com.huzijun.yizunetwork.core.house.entity.HouseInfo">
 		<id column="h_id" property="hId" />
 		<result column="u_id" property="uId" />
 		<result column="dk_rental_way" property="dkRentalWay" />
@@ -39,6 +39,8 @@
 		<result column="dk_pub_status" property="dkPubStatus" />
 		<result column="publish_time" property="publishTime" />
 		<result column="dk_h_exception" property="dkHException" />
+		<result column="dk_sub_station" property="dkSubStation" />
+		<result column="dk_add_area" property="dkAddArea" />
 	</resultMap>
 
 
@@ -162,4 +164,8 @@
 			</if>
 		</if>
 	</sql>
+	<select id="selectList" resultMap="BaseResultMap">
+		select a.title,a.dk_rental_way,a.title,a.room,a.hall,a.dk_orient,a.rental from house_info a
+	<include refid="entityWrapperJoin"/>
+	</select>
 </mapper>

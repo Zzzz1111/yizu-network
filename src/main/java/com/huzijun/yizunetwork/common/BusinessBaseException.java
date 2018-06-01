@@ -1,4 +1,4 @@
-package com.cr.crinporder.core.base;
+package com.huzijun.yizunetwork.common;
 
 /**
  * 业务相关异常
@@ -6,7 +6,7 @@ package com.cr.crinporder.core.base;
  * Writed by fengjy
  * Created on 3/8/17
  */
-public class BusinessBaseException extends RuntimeException{
+public class BusinessBaseException extends RuntimeException {
 
     private final static  long serialVersionUID = -1;
 

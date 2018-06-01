@@ -1,4 +1,4 @@
-package com.cr.crinporder.common.enm;
+package com.huzijun.yizunetwork.common.enm;
 
 /**
  * @Author: Zhou Daoming
@@ -7,9 +7,9 @@ package com.cr.crinporder.common.enm;
  * @Modified By:
  */
 public class ValidatedGroup {
-    public final static Class[] ALL = {Add.class, Update.class};
+    public final static Class[] ALL = {Insert.class, Update.class};
 
-    public interface Add {
+    public interface Insert {
     }
 
     public interface Update {

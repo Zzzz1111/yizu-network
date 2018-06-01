@@ -1,4 +1,4 @@
-package com.cr.crinporder.common.utils;
+package com.huzijun.yizunetwork.utils;
 
 import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSSClient;
@@ -7,6 +7,7 @@ import com.aliyun.oss.model.CannedAccessControlList;
 import com.aliyun.oss.model.CreateBucketRequest;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
+import org.apache.commons.collections.iterators.AbstractListIteratorDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,12 +24,13 @@ import java.util.UUID;
  */
 public class AliOSSUtil {
     private final static Logger log = LoggerFactory.getLogger(AliOSSUtil.class);
-    private static String END_POINT = PropertiesUtil.getProperty("END_POINT");
-    private static String ACCESS_KEY_ID = PropertiesUtil.getProperty("ACCESS_KEY_ID");
-    private static String ACCESS_KEY_SECRET = PropertiesUtil.getProperty("ACCESS_KEY_SECRET");
-    private static String BUCKET_NAME = PropertiesUtil.getProperty("BUCKET_NAME");
+    private static String END_POINT = PropertiesUtil.getValueBykey("AliOSSConfig","EndPoint");
+    private static String ACCESS_KEY_ID = PropertiesUtil.getValueBykey("AliOSSConfig","AccessKeyId");
+    private static String ACCESS_KEY_SECRET = PropertiesUtil.getValueBykey("AliOSSConfig","AccessKeySecret");
+    private static String BUCKET_NAME = PropertiesUtil.getValueBykey("AliOSSConfig","BucketName");
     // 文件访问域名
-    private static String FILE_HOST = PropertiesUtil.getProperty("IMAGE_HOST");
+    private static String DO_MAIN_NAME = PropertiesUtil.getValueBykey("AliOSSConfig","DoMainName");
+
     /**
      * 方法描述:上传文件
      *
@@ -57,7 +59,7 @@ public class AliOSSUtil {
             // 上传文件
             PutObjectResult result = ossClient.putObject(new PutObjectRequest(BUCKET_NAME, fileUrl, file));
             if (null != result) {
-                return FILE_HOST + fileUrl;
+                return DO_MAIN_NAME + fileUrl;
             }
         } catch (OSSException oe) {
             log.error(oe.getMessage());
@@ -97,7 +99,7 @@ public class AliOSSUtil {
             // 上传文件
             PutObjectResult result = ossClient.putObject(new PutObjectRequest(BUCKET_NAME, fileUrl, inputStream));
             if (null != result) {
-                return FILE_HOST + fileUrl;
+                return DO_MAIN_NAME + fileUrl;
             }
         } catch (OSSException oe) {
             log.error(oe.getMessage());

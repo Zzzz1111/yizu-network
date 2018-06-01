@@ -64,29 +64,29 @@ public class MpGenerator {
         });
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("1234");
-        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/yizunetwork?characterEncoding=utf8");
+        dsc.setPassword("960528");
+        dsc.setUrl("jdbc:mysql://47.106.115.158:3306/yizu_test?characterEncoding=utf8");
         mpg.setDataSource(dsc);
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         // strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
-        strategy.setTablePrefix(new String[] { "yz", "tsys_" });// 此处可以修改为您的表前缀
+        strategy.setTablePrefix(new String[] { "", "" });// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        strategy.setInclude(new String[] { "yz_user" }); // 需要生成的表
+        strategy.setInclude(new String[] { "user_comment" }); // 需要生成的表
         // strategy.setExclude(new String[]{"test"}); // 排除生成的表
         // 自定义实体父类
          strategy.setSuperEntityClass("com.huzijun.yizunetwork.common.BaseEntity");
         // 自定义实体，公共字段
-        // strategy.setSuperEntityColumns(new String[] { "test_id", "age" });
+         strategy.setSuperEntityColumns(new String[] { "create_by", "create_time","update_by","update_time","del_flag" });
         // 自定义 mybatis 父类
         // strategy.setSuperMapperClass("com.baomidou.demo.TestMapper");
         // 自定义 service 父类
-        // strategy.setSuperServiceClass("com.baomidou.demo.TestService");
+//        strategy.setSuperServiceClass("com.huzijun.yizunetwork.common.BaseService");
         // 自定义 service 实现类父类
-        // strategy.setSuperServiceImplClass("com.baomidou.demo.TestServiceImpl");
+         strategy.setSuperServiceImplClass("com.huzijun.yizunetwork.common.BaseService");
         // 自定义 controller 父类
-        // strategy.setSuperControllerClass("com.baomidou.demo.TestController");
+         strategy.setSuperControllerClass("com.huzijun.yizunetwork.common.BaseController");
         // 【实体】是否生成字段常量（默认 false）
         // public static final String ID = "test_id";
         // strategy.setEntityColumnConstant(true);
@@ -98,7 +98,7 @@ public class MpGenerator {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.huzijun.yizunetwork");
-        pc.setModuleName("login");
+        pc.setModuleName("dict");
         mpg.setPackageInfo(pc);
 
         // 注入自定义配置，可以在 VM 中使用 cfg.abc 【可无】
@@ -145,7 +145,7 @@ public class MpGenerator {
         tc.setEntity("/templates/entity.java.vm");
         tc.setMapper("/templates/mapper.java.vm");
         tc.setXml("/templates/mapper.xml.vm");
-        tc.setService("/templates/service.java.vm");
+        tc.setService("/templates/serviceImpl.java.vm");
         tc.setServiceImpl(null);
         // 如上任何一个模块如果设置 空 OR Null 将不生成该模块。
         mpg.setTemplate(tc);
