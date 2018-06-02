@@ -10,8 +10,8 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@Configuration
 @EnableSwagger2
+@Configuration
 public class MySwagger2Config {
 
     @Bean
@@ -19,7 +19,7 @@ public class MySwagger2Config {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.huzijun.yizunetwork.core.**.web"))
+                .apis(RequestHandlerSelectors.basePackage("com.huzijun.yizunetwork.core"))
                 .paths(PathSelectors.any())
                 .build();
     }

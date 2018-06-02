@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.huzijun.yizunetwork.common.BaseEntity;
 import com.huzijun.yizunetwork.common.enm.ValidatedGroup;
 import com.huzijun.yizunetwork.utils.ValidataUtil;
@@ -38,13 +39,11 @@ public class HouseInfo extends BaseEntity {
     /**
      * 发布用户id
      */
-	@NotBlank(groups = ValidatedGroup.Insert.class,message = "发布用户不能为空")
 	@TableField("u_id")
 	private Integer uId;
     /**
      * 房源出租方式：0：整租，1：合租
      */
-	@NotBlank(groups = ValidatedGroup.Insert.class,message = "房屋出租方式不能为空")
 	@TableField("dk_rental_way")
 	private Integer dkRentalWay;
 
@@ -53,72 +52,59 @@ public class HouseInfo extends BaseEntity {
     /**
      * 标题
      */
-	@NotBlank(groups = ValidatedGroup.Insert.class,message = "标题不能为空")
     private String title;
     /**
      * 室
      */
-	@NotBlank(groups = ValidatedGroup.Insert.class,message = "室不能为空")
 	private Integer room;
     /**
      * 厅
      */
-	@NotBlank(groups = ValidatedGroup.Insert.class,message = "厅不能为空")
 	private Integer hall;
     /**
      * 卫
      */
-	@NotBlank(groups = ValidatedGroup.Insert.class,message = "卫不能为空")
 	private Integer toilet;
     /**
      * 房源面积
      */
-	@NotBlank(groups = ValidatedGroup.Insert.class,message = "房源面积不能为空")
 	private Integer area;
     /**
      * 房源朝向orientations
      */
-	@NotBlank(groups = ValidatedGroup.Insert.class,message = "房源朝向不能为空")
 	@TableField("dk_orient")
 	private Integer dkOrient;
     /**
      * 房源装修类型：0：毛坯，1：简装修，2：中等装修，3：精装修，4：豪华装修
      */
-	@NotBlank(groups = ValidatedGroup.Insert.class,message = "房源装修类型不能为空")
 	@TableField("dk_decoration")
 	private Integer dkDecoration;
     /**
      * 房源楼层
      */
-	@NotBlank(groups = ValidatedGroup.Insert.class,message = "房源楼层不能为空")
 	private Integer floor;
     /**
      * 房源总楼层
      */
-    @NotBlank(groups = ValidatedGroup.Insert.class,message = " 房源总楼层不能为空")
 	@TableField("total_floor")
 	private Integer totalFloor;
     /**
      * 租金
      */
-	@NotBlank(groups = ValidatedGroup.Insert.class,message = "租金不能为空")
 	private BigDecimal rental;
     /**
      * 房源押付类型：1：押一付一，2：押一付二，3：押一付三，4：押二付一，5：押二付二，6：半年付，7：年付，8：面议
      */
-	@NotBlank(groups = ValidatedGroup.Insert.class,message = "房源押付不能为空")
 	@TableField("dk_rental_type")
 	private Integer dkRentalType;
     /**
      * 水费/月
      */
-	@NotBlank(groups = ValidatedGroup.Insert.class,message = "电费不能为空")
 	@TableField("water_rate")
 	private BigDecimal waterRate;
     /**
      * 电费/月
      */
-	@NotBlank(groups = ValidatedGroup.Insert.class,message = "水费不能为空")
 	@TableField("power_rate")
 	private BigDecimal powerRate;
     /**
@@ -139,7 +125,6 @@ public class HouseInfo extends BaseEntity {
     /**
      * 看房时间：0：仅工作日，1：仅周末，2：随时看房
      */
-	@NotBlank(groups = ValidatedGroup.Insert.class,message = "看房时间不能为空")
 	@TableField("dk_looktime")
 	private Integer dkLooktime;
     /**
@@ -180,7 +165,6 @@ public class HouseInfo extends BaseEntity {
     /**
      * 房源图片地址
      */
-	@NotBlank(groups = ValidatedGroup.Insert.class,message = "房源图片地址不能为空")
 	@TableField("h_img_path")
 	private String hImgPath;
     /**
@@ -218,7 +202,6 @@ public class HouseInfo extends BaseEntity {
 	private String dkSubStation;
 
 	//房源区域
-	@NotBlank(groups = ValidatedGroup.Insert.class,message = "房源区域不能为空")
 	@TableField("dk_add_area")
 	private Integer dkAddArea;
 
@@ -233,6 +216,50 @@ public class HouseInfo extends BaseEntity {
 
 	@TableField(exist = false)
 	private String addressKey;
+	@TableField(exist = false)
+	private String[] dkConfigures;
+	@TableField(exist = false)
+	private String[] dkRentalCosts;
+	@TableField(exist = false)
+	private String[] dkRentalDemands;
+	@TableField(exist = false)
+	private String[] hImgPaths;
+
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
+
+	public String[] getDkConfigures() {
+		return dkConfigures;
+	}
+
+	public void setDkConfigures(String[] dkConfigures) {
+		this.dkConfigures = dkConfigures;
+	}
+
+	public String[] getDkRentalCosts() {
+		return dkRentalCosts;
+	}
+
+	public void setDkRentalCosts(String[] dkRentalCosts) {
+		this.dkRentalCosts = dkRentalCosts;
+	}
+
+	public String[] getDkRentalDemands() {
+		return dkRentalDemands;
+	}
+
+	public void setDkRentalDemands(String[] dkRentalDemands) {
+		this.dkRentalDemands = dkRentalDemands;
+	}
+
+	public String[] gethImgPaths() {
+		return hImgPaths;
+	}
+
+	public void sethImgPaths(String[] hImgPaths) {
+		this.hImgPaths = hImgPaths;
+	}
 
 	public String getPriceRange() {
 		return priceRange;
@@ -422,9 +449,7 @@ public class HouseInfo extends BaseEntity {
 		return dkRentalDemand;
 	}
 
-	public void setDkRentalDemand(String dkRentalDemand) {
-		this.dkRentalDemand = dkRentalDemand;
-	}
+	public void setDkRentalDemand(String dkRentalDemand) { this.dkRentalDemand = dkRentalDemand; }
 
 	public Integer getDkLooktime() {
 		return dkLooktime;

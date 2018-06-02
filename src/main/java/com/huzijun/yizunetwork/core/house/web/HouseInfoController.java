@@ -1,15 +1,19 @@
 package com.huzijun.yizunetwork.core.house.web;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.huzijun.yizunetwork.common.BaseController;
 import com.huzijun.yizunetwork.common.BaseReturnDTO;
 import com.huzijun.yizunetwork.common.PageDTO;
+import com.huzijun.yizunetwork.common.enm.ValidatedGroup;
 import com.huzijun.yizunetwork.core.house.entity.HouseInfo;
 import com.huzijun.yizunetwork.core.house.service.HouseInfoService;
 import com.huzijun.yizunetwork.core.user.entity.UserInfo;
+import com.huzijun.yizunetwork.utils.ValidataUtil;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,23 +27,24 @@ import javax.servlet.http.HttpSession;
  * @author hzj
  * @since 2018-05-29
  */
+@Api
 @RestController
-@RequestMapping("/houseInfo")
+@RequestMapping("/house/houseInfo")
 public class HouseInfoController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(HouseInfoController.class);
 
     @Autowired
-    HouseInfoService houseInfoService;
+    private HouseInfoService houseInfoService;
 
     @PostMapping(value = "/publishHouseInfo")
-    public BaseReturnDTO publishHouseInfo(HttpSession session,@RequestBody HouseInfo houseInfo){
+    public BaseReturnDTO publishHouseInfo(HttpSession session,@Validated(ValidatedGroup.Insert.class)@RequestBody HouseInfo houseInfo){
         UserInfo user= (UserInfo) session.getAttribute("user");
         return BaseReturnDTO.ok("操作成功",houseInfoService.publishHouseInfo(user.getuId(),houseInfo));
     }
 
     @PostMapping(value = "/updateHouseInfo")
-    public BaseReturnDTO updateHouseInfo(HouseInfo houseInfo){
+    public BaseReturnDTO updateHouseInfo(@RequestBody HouseInfo houseInfo){
         return BaseReturnDTO.ok("更新成功",houseInfoService.updateHouseInfo(houseInfo));
     }
 
@@ -49,7 +54,7 @@ public class HouseInfoController extends BaseController {
     }
 
     @PostMapping(value = "/getPage")
-    public BaseReturnDTO selectPage(PageDTO<HouseInfo> pageDTO){
+    public BaseReturnDTO selectPage(@RequestBody PageDTO<HouseInfo> pageDTO){
         return  BaseReturnDTO.ok("查询成功",houseInfoService.getPage(pageDTO));
     }
 
@@ -65,10 +70,9 @@ public class HouseInfoController extends BaseController {
     }
 
     @PostMapping(value = "/getMyPage")
-    public BaseReturnDTO getMyPage(HttpSession session,PageDTO<HouseInfo> pageDTO){
+    public BaseReturnDTO getMyPage(HttpSession session,@RequestBody PageDTO<HouseInfo> pageDTO){
         UserInfo user= (UserInfo) session.getAttribute("user");
-        pageDTO.getModel().setuId(user.getuId());
-        return BaseReturnDTO.ok("查询成功",houseInfoService.getMyPage(pageDTO));
+        return BaseReturnDTO.ok("查询成功",houseInfoService.getMyPage(pageDTO,user.getuId()));
     }
 
 

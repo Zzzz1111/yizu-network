@@ -8,6 +8,7 @@ import com.huzijun.yizunetwork.core.user.entity.UserInfo;
 import com.huzijun.yizunetwork.core.user.mapper.UserInfoMapper;
 import com.huzijun.yizunetwork.utils.MyStringUtil;
 import com.huzijun.yizunetwork.utils.ValidataUtil;
+import io.swagger.models.auth.In;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,16 +31,19 @@ import javax.servlet.http.HttpServletRequest;
 @Transactional
 public class UserInfoService extends BaseService<UserInfoMapper, UserInfo>{
 
-    @Autowired
-    JpushService jpushService;
+    private final static String DEFAULT_ICON = "/static/img/user-default.6aa5c4f.png";
 
     @Autowired
-    FileService fileService;
+    private JpushService jpushService;
+
+    @Autowired
+    private FileService fileService;
 
     private static final Logger logger = LoggerFactory.getLogger(UserInfoService.class);
 
     //共有注册验证
     private UserInfo signIn(UserInfo userInfo, String paramName) {
+        userInfo.setuImgPath(DEFAULT_ICON);
         EntityWrapper wrapper = new EntityWrapper<UserInfo>();
         wrapper.setEntity(userInfo);
         if (selectOne(wrapper) != null)
@@ -65,37 +69,34 @@ public class UserInfoService extends BaseService<UserInfoMapper, UserInfo>{
             throw BusinessBaseException.fail("密码最少为6位字母数字混合");
     }
 
-    public String upLoadUserIcon(UserInfo userInfo,HttpServletRequest request){
-        userInfo = selectById(userInfo.getuId());
-        if (userInfo == null)
-            throw BusinessBaseException.fail("该用户不存在");
+    public String upLoadUserIcon(HttpServletRequest request){
         String userIconUrl = fileService.upload(request).get(0);
-        userInfo.setuImgPath(userIconUrl);
         return userIconUrl;
     }
 
     public UserInfo loginByLoginId(UserDTO userDTO) {
-        if (MyStringUtil.isNull(userDTO.getPhone()))
+        if (!MyStringUtil.isNull(userDTO.getMsgId()))
             throw BusinessBaseException.fail("参数错误");
-        if (MyStringUtil.isNull(userDTO.getMsgId()))
-            throw BusinessBaseException.fail("参数错误");
-        if (MyStringUtil.isNull(userDTO.getCode()))
+        if (!MyStringUtil.isNull(userDTO.getCode()))
             throw BusinessBaseException.fail("参数错误");
         UserInfo userInfo = new UserInfo();
-        userInfo.setLoginId(userDTO.getLoginId());
+        userInfo.setLoginId(userDTO.getLoginId() == null ? null: userDTO.getLoginId());
+        userInfo.setLoginId(userDTO.getPhone() == null ? null: userDTO.getPhone());
         userInfo.setPwd(userDTO.getPwd());
         EntityWrapper wrapper = new EntityWrapper<UserInfo>();
         wrapper.setEntity(userInfo);
         userInfo = selectOne(wrapper);
         if (userInfo == null)
             throw BusinessBaseException.fail("用户名或者密码错误");
+        if (!userInfo.getDkUException().equals(0))
+            throw BusinessBaseException.fail("该用户已被封禁，请联系管理员");
         return userInfo;
     }
 
     public UserInfo loginByPhone(UserDTO userDTO) {
-        if (MyStringUtil.isNull(userDTO.getLoginId()))
+        if (!MyStringUtil.isNull(userDTO.getLoginId()))
             throw BusinessBaseException.fail("参数错误");
-        if (MyStringUtil.isNull(userDTO.getPwd()))
+        if (!MyStringUtil.isNull(userDTO.getPwd()))
             throw BusinessBaseException.fail("参数错误");
         boolean flag = jpushService.validCheckMsg(userDTO.getMsgId(),userDTO.getCode());
         if (flag == false)
@@ -107,6 +108,8 @@ public class UserInfoService extends BaseService<UserInfoMapper, UserInfo>{
         userInfo = selectOne(wrapper);
         if (userInfo == null)
             throw BusinessBaseException.fail("手机号不存在");
+        if (!userInfo.getDkUException().equals(0))
+            throw BusinessBaseException.fail("该用户已被封禁，请联系管理员");
         return userInfo;
     }
 
@@ -115,10 +118,12 @@ public class UserInfoService extends BaseService<UserInfoMapper, UserInfo>{
         checkPhone(userDTO.getPhone());
         if (MyStringUtil.isNull(userDTO.getMsgId()))
             throw BusinessBaseException.fail("验证码不能为空");
+        checkPwd(userDTO.getPwd());
         boolean flag = jpushService.validCheckMsg(userDTO.getMsgId(),userDTO.getCode());
         if (flag == true) {
             UserInfo userInfo = new UserInfo();
             userInfo.setPhoneNo(userDTO.getPhone());
+            userInfo.setPwd(userDTO.getPwd());
             return signIn(userInfo, "手机号");
         }
         throw BusinessBaseException.fail("验证码错误");
@@ -205,5 +210,9 @@ public class UserInfoService extends BaseService<UserInfoMapper, UserInfo>{
         checkPwd(userDTO.getNewPwd());
         userInfo.setPwd(userDTO.getNewPwd());
         return updateById(userInfo);
+    }
+
+    public UserInfo getUserInfo(Integer uId){
+        return  selectById(uId);
     }
 }

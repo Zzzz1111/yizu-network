@@ -73,7 +73,7 @@ public class MpGenerator {
         // strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
         strategy.setTablePrefix(new String[] { "", "" });// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        strategy.setInclude(new String[] { "user_comment" }); // 需要生成的表
+        strategy.setInclude(new String[] { "admin_info" }); // 需要生成的表
         // strategy.setExclude(new String[]{"test"}); // 排除生成的表
         // 自定义实体父类
          strategy.setSuperEntityClass("com.huzijun.yizunetwork.common.BaseEntity");
@@ -97,8 +97,8 @@ public class MpGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("com.huzijun.yizunetwork");
-        pc.setModuleName("dict");
+        pc.setParent("com.huzijun.yizunetwork.core");
+        pc.setModuleName("admin");
         mpg.setPackageInfo(pc);
 
         // 注入自定义配置，可以在 VM 中使用 cfg.abc 【可无】

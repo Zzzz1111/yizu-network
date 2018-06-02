@@ -59,7 +59,7 @@ public class AliOSSUtil {
             // 上传文件
             PutObjectResult result = ossClient.putObject(new PutObjectRequest(BUCKET_NAME, fileUrl, file));
             if (null != result) {
-                return DO_MAIN_NAME + fileUrl;
+                return DO_MAIN_NAME +"/"+ fileUrl;
             }
         } catch (OSSException oe) {
             log.error(oe.getMessage());

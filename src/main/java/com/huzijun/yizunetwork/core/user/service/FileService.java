@@ -1,5 +1,6 @@
 package com.huzijun.yizunetwork.core.user.service;
 
+import cn.jiguang.common.utils.StringUtils;
 import com.huzijun.yizunetwork.utils.AliOSSUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,13 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,7 +40,7 @@ public class FileService {
 
         String path = request.getSession().getServletContext().getRealPath("upload");
         // 创建一个通用的多部分解析器
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+//        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
         List<String> files = new ArrayList<>();
         // 判断 request 是否有文件上传,即多部分请求
 
@@ -106,5 +106,10 @@ public class FileService {
         return files;
 
 
+    }
+
+    public static void main(String[] args) {
+        String[] str = {"1","2","3"};
+        System.out.println(Arrays.toString(str));
     }
 }

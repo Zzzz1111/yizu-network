@@ -164,8 +164,21 @@
 			</if>
 		</if>
 	</sql>
+
+	<update id="cleanHouseInfo" parameterType="java.lang.Integer">
+		update house_info a set a.dk_pub_status = '5' where a.h_id in
+		<foreach collection="list" item="item"  open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</update>
+	<select id="selectExCount" resultType="java.lang.Long">
+		select count(a.h_id) from house_info a where a.dk_h_exception != '0' and a.u_id = #{uId}
+	</select>
 	<select id="selectList" resultMap="BaseResultMap">
-		select a.title,a.dk_rental_way,a.title,a.room,a.hall,a.dk_orient,a.rental from house_info a
-	<include refid="entityWrapperJoin"/>
+		select a.h_id,a.title,a.dk_rental_way,a.title,a.room,a.hall,a.dk_orient,a.rental,a.h_img_path,a.area,a.suitable from house_info a
+		<include refid="entityWrapperJoin"/>
+	</select>
+	<select id="selectDTOList" resultType="com.huzijun.yizunetwork.core.house.DTO.CleanHouseDTO">
+		select a.h_id as 'id',a.publish_time as 'publishTime' from house_info a where a.dk_h_exception = '0' and a.dk_pub_status = '2'
 	</select>
 </mapper>

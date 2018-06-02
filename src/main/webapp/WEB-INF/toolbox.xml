@@ -31,7 +31,7 @@
     </tool>
 
     <!-- [ RenderTool ] @see http://velocity.apache.org/tools/devel/generic/RenderTool.html
-        (en) @since VelocityTools 1.0 <tool> <key>render</key> <scope>application</scope>
+        (en) @since VelocityTools 1.0 <tool> <key>render</key> <scope>application.yml</scope>
         <class>org.apache.velocity.tools.generic.RenderTool</class> </tool> -->
 
     <!-- [ EscapeTool ] @see http://velocity.apache.org/tools/devel/generic/EscapeTool.html

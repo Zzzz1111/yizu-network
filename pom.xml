@@ -28,6 +28,11 @@
 		<!--Spring依赖-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<!--<scope>provided</scope>-->
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
@@ -71,18 +76,12 @@
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
-			<version>2.7.0</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>guava</artifactId>
-					<groupId>com.google.guava</groupId>
-				</exclusion>
-			</exclusions>
+			<version>2.6.1</version>
 		</dependency>
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
-			<version>2.7.0</version>
+			<version>2.6.1</version>
 		</dependency>
 		<!--servlet依赖-->
 		<dependency>
@@ -100,47 +99,13 @@
             <version>1.9.3</version>
         </dependency>
 		<!--极光推送依赖-->
-		<!--<dependency>-->
-			<!--<groupId>cn.jpush.api</groupId>-->
-			<!--<artifactId>jsms-client</artifactId>-->
-			<!--<version>1.2.8</version>-->
-			<!--<exclusions>-->
-				<!--<exclusion>-->
-					<!--<artifactId>gson</artifactId>-->
-					<!--<groupId>com.google.code.gson</groupId>-->
-				<!--</exclusion>-->
-			<!--</exclusions>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>com.google.code.gson</groupId>-->
-			<!--<artifactId>gson</artifactId>-->
-			<!--<version>2.3</version>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>org.slf4j</groupId>-->
-			<!--<artifactId>slf4j-api</artifactId>-->
-			<!--<version>1.7.7</version>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>cn.jpush.api</groupId>-->
-			<!--<artifactId>jiguang-common</artifactId>-->
-			<!--<version>1.0.8</version>-->
-		<!--</dependency>-->
+
 		<dependency>
 			<groupId>cn.jpush.api</groupId>
 			<artifactId>jsms-client</artifactId>
 			<version>1.2.8</version>
 		</dependency>
-		<!--<dependency>-->
-			<!--<groupId>com.google.code.gson</groupId>-->
-			<!--<artifactId>gson</artifactId>-->
-			<!--<version>2.3</version>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>org.slf4j</groupId>-->
-			<!--<artifactId>slf4j-api</artifactId>-->
-			<!--<version>1.7.7</version>-->
-		<!--</dependency>-->
+
 		<dependency>
 			<groupId>cn.jpush.api</groupId>
 			<artifactId>jiguang-common</artifactId>
@@ -195,6 +160,15 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.20.1</version>
+				<configuration>
+					<!-- 不指定单元测试 -->
+					<skipTests>true</skipTests>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

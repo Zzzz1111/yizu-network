@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-@MapperScan("com.huzijun.yizunetwork.**.mapper*")
+@MapperScan("com.huzijun.yizunetwork.core.*.mapper")
 public class MybatisPlusConfig {
 
     /**

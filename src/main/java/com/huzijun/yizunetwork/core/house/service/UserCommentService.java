@@ -1,5 +1,7 @@
 package com.huzijun.yizunetwork.core.house.service;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.huzijun.yizunetwork.common.BaseService;
 import com.huzijun.yizunetwork.common.BusinessBaseException;
 import com.huzijun.yizunetwork.core.house.entity.UserComment;
@@ -34,6 +36,12 @@ public class UserCommentService extends BaseService<UserCommentMapper, UserComme
         if (!userComment.getuId().equals(uId))
             throw BusinessBaseException.fail("不能删除别人的评论");
         return deleteById(commentId);
+    }
+
+    public Page<UserComment> getHouseCommentPage(Page<UserComment> page,Integer hId){
+        EntityWrapper<UserComment> ew = new EntityWrapper<>();
+        ew.eq("h_comment",hId);
+        return selectPage(page);
     }
 
 }

@@ -34,4 +34,10 @@
 			</if>
 		</if>
 	</sql>
+	<select id="selectMyHouseFavorites" resultType="com.huzijun.yizunetwork.core.house.DTO.UserFavoriteDTO">
+		select  a.title as 'houseInfoTitle',a.dk_pub_status as 'houseInfoPubStatus',b.u_f_id as 'uFId',b.h_favorite as 'hFavorite' from house_info a right join user_favorite b on a.h_id = b.h_favorite
+		<include refid="entityWrapperJoin"/>
+	</select>
+
+
 </mapper>

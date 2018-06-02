@@ -40,6 +40,7 @@ public class UserFavorite extends BaseEntity {
 	private Integer hFavorite;
 
 
+
 	public Integer getuFId() {
 		return uFId;
 	}

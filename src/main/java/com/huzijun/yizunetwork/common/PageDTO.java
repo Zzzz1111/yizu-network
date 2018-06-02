@@ -6,6 +6,7 @@ public class PageDTO<T> {
     private Integer current;
     private Integer size ;
     private String orderBy;
+    private Boolean asc;
 
     public String getOrderBy() {
         return orderBy;
@@ -37,5 +38,13 @@ public class PageDTO<T> {
 
     public void setSize(Integer size) {
         this.size = size;
+    }
+
+    public Boolean getAsc() {
+        return asc;
+    }
+
+    public void setAsc(Boolean asc) {
+        this.asc = asc;
     }
 }

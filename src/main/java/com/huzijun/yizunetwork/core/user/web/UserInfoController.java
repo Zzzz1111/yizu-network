@@ -24,6 +24,7 @@ import javax.servlet.http.HttpSession;
  * @author hzj
  * @since 2018-05-15
  */
+@Api
 @Controller
 @RequestMapping("/usr")
 public class UserInfoController extends BaseController {
@@ -31,14 +32,14 @@ public class UserInfoController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(UserInfoController.class);
 
     @Autowired
-    UserInfoService userInfoService;
+    private UserInfoService userInfoService;
 
     @ResponseBody
     @PostMapping(value = "/loginByLoginId")
-    public BaseReturnDTO loginByLoginId(UserDTO userDTO,HttpSession session){
+    public BaseReturnDTO loginByLoginId(@RequestBody UserDTO userDTO,HttpSession session){
         UserInfo userInfo = userInfoService.loginByLoginId(userDTO);
         if (userInfo.getuId() != null)
-            session.setAttribute("userInfo",userInfo);
+            session.setAttribute("user",userInfo);
         return BaseReturnDTO.ok("登录成功",userInfo);
     }
 
@@ -47,16 +48,16 @@ public class UserInfoController extends BaseController {
     public BaseReturnDTO signInByLoginId(@RequestBody UserDTO userDTO, HttpSession session){
         UserInfo userInfo = userInfoService.signInByLoginId(userDTO);
         if (userInfo.getuId() != null)
-            session.setAttribute("userInfo",userInfo);
+            session.setAttribute("user",userInfo);
         return BaseReturnDTO.ok("注册成功",userInfo);
     }
 
     @ResponseBody
     @PostMapping(value = "/loginByPhone")
-    public BaseReturnDTO loginByPhone(UserDTO userDTO,HttpSession session){
+    public BaseReturnDTO loginByPhone(@RequestBody UserDTO userDTO,HttpSession session){
         UserInfo userInfo = userInfoService.loginByPhone(userDTO);
         if (userInfo.getuId() != null)
-            session.setAttribute("userInfo",userInfo);
+            session.setAttribute("user",userInfo);
         return BaseReturnDTO.ok("登录成功",userInfo);
     }
 
@@ -65,7 +66,7 @@ public class UserInfoController extends BaseController {
     public BaseReturnDTO signInByPhone(@RequestBody UserDTO userDTO,HttpSession session){
         UserInfo userInfo = userInfoService.signInByPhone(userDTO);
         if (userInfo.getuId() != null)
-            session.setAttribute("userInfo",userInfo);
+            session.setAttribute("user",userInfo);
         return BaseReturnDTO.ok("注册成功",userInfo);
     }
 
@@ -77,33 +78,46 @@ public class UserInfoController extends BaseController {
 
     @ResponseBody
     @PostMapping(value = "/completeUserInfo")
-    public BaseReturnDTO completeUserInfo(UserInfo userInfo){
+    public BaseReturnDTO completeUserInfo(@RequestBody UserInfo userInfo,HttpSession session){
+        UserInfo user= (UserInfo) session.getAttribute("user");
+        userInfo.setuId(user.getuId());
         return BaseReturnDTO.ok("更新成功",userInfoService.completeUserInfo(userInfo));
     }
 
     @ResponseBody
     @PostMapping(value = "/updateUserInfo")
-    public BaseReturnDTO updateUserInfo(UserInfo userInfo){
+    public BaseReturnDTO updateUserInfo(@RequestBody UserInfo userInfo,HttpSession session){
+        UserInfo user= (UserInfo) session.getAttribute("user");
+        userInfo.setuId(user.getuId());
         return BaseReturnDTO.ok("更新成功",userInfoService.updateUserInfo(userInfo));
     }
 
     @ResponseBody
     @PostMapping(value = "/changePhone")
-    public BaseReturnDTO changPhone(UserDTO userDTO){
+    public BaseReturnDTO changPhone(@RequestBody UserDTO userDTO,HttpSession session){
+        UserInfo user= (UserInfo) session.getAttribute("user");
+        userDTO.setuId(user.getuId());
         return BaseReturnDTO.ok("更新成功",userInfoService.changePhone(userDTO));
     }
 
     @ResponseBody
     @PostMapping(value = "/changePwd")
-    public BaseReturnDTO changePWD(UserDTO userDTO){
+    public BaseReturnDTO changePWD(@RequestBody UserDTO userDTO,HttpSession session){
+        UserInfo user= (UserInfo) session.getAttribute("user");
+        userDTO.setuId(user.getuId());
         return BaseReturnDTO.ok("更新成功",userInfoService.changePwd(userDTO));
     }
 
     @ResponseBody
-    @GetMapping(value = "/uploadUserIcon")
-    public BaseReturnDTO uploadUserIcon(UserInfo userInfo,HttpServletRequest request){
-        return BaseReturnDTO.ok(userInfoService.upLoadUserIcon(userInfo,request));
+    @PostMapping(value = "/uploadUserIcon")
+    public BaseReturnDTO uploadUserIcon(HttpServletRequest request){
+        return BaseReturnDTO.ok(userInfoService.upLoadUserIcon(request));
     }
 
+    @ResponseBody
+    @GetMapping(value = "/getUserInfo")
+    public BaseReturnDTO getUserInfo(Integer uId){
+        return BaseReturnDTO.ok("查询成功",userInfoService.getUserInfo(uId));
+    }
 
 }

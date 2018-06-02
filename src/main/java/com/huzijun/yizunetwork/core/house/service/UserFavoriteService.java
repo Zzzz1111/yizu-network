@@ -1,7 +1,10 @@
 package com.huzijun.yizunetwork.core.house.service;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.huzijun.yizunetwork.common.BaseService;
 import com.huzijun.yizunetwork.common.BusinessBaseException;
+import com.huzijun.yizunetwork.core.house.DTO.UserFavoriteDTO;
 import com.huzijun.yizunetwork.core.house.entity.HouseInfo;
 import com.huzijun.yizunetwork.core.house.entity.UserFavorite;
 import com.huzijun.yizunetwork.core.house.mapper.UserFavoriteMapper;
@@ -22,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserFavoriteService extends BaseService<UserFavoriteMapper, UserFavorite>{
 
     @Autowired
-    HouseInfoService houseInfoService;
+    private HouseInfoService houseInfoService;
 
     public boolean collectHouse(Integer uId,Integer hId){
         HouseInfo houseInfo = houseInfoService.commonExistsCheck(hId);
@@ -47,5 +50,14 @@ public class UserFavoriteService extends BaseService<UserFavoriteMapper, UserFav
             throw BusinessBaseException.fail("不能取消非本人收藏的房源");
         return deleteById(userFavoriteId);
     }
-	
+
+
+    public Page<UserFavoriteDTO> selectMyFavorites(Page<UserFavoriteDTO> page,Integer uId){
+        if (uId == null)
+            throw BusinessBaseException.fail("请先完成登录");
+        EntityWrapper<UserFavoriteDTO> entityWrapper = new EntityWrapper<>();
+        entityWrapper.eq("b.u_id",uId);
+        page.setRecords(this.baseMapper.selectMyHouseFavorites(page,entityWrapper));
+        return page;
+    }
 }
