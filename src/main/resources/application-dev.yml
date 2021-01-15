@@ -4,8 +4,6 @@ server:
 spring:
   datasource:
     url: jdbc:mysql://47.106.115.158:3306/yizu_test?useUnicode=true&characterEncoding=UTF-8
-    username: root
-    password: 960528
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     table-schema: yizu_test
